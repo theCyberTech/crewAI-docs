@@ -1,5 +1,6 @@
 import subprocess
 import click
+from security import safe_command
 
 
 def replay_task_command(task_id: str) -> None:
@@ -12,7 +13,7 @@ def replay_task_command(task_id: str) -> None:
     command = ["poetry", "run", "replay", task_id]
 
     try:
-        result = subprocess.run(command, capture_output=False, text=True, check=True)
+        result = safe_command.run(subprocess.run, command, capture_output=False, text=True, check=True)
         if result.stderr:
             click.echo(result.stderr, err=True)
 

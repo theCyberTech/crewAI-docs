@@ -1,6 +1,7 @@
 import subprocess
 
 import click
+from security import safe_command
 
 
 def run_crew() -> None:
@@ -10,7 +11,7 @@ def run_crew() -> None:
     command = ["poetry", "run", "run_crew"]
 
     try:
-        result = subprocess.run(command, capture_output=False, text=True, check=True)
+        result = safe_command.run(subprocess.run, command, capture_output=False, text=True, check=True)
 
         if result.stderr:
             click.echo(result.stderr, err=True)
