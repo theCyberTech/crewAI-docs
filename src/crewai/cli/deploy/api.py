@@ -23,7 +23,7 @@ class CrewAPI:
 
     def _make_request(self, method: str, endpoint: str, **kwargs) -> requests.Response:
         url = f"{self.base_url}/{endpoint}"
-        return requests.request(method, url, headers=self.headers, **kwargs)
+        return requests.request(method, url, headers=self.headers, **kwargs, timeout=60)
 
     # Deploy
     def deploy_by_name(self, project_name: str) -> requests.Response:
