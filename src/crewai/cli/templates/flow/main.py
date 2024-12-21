@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-from random import randint
 
 from pydantic import BaseModel
 
 from crewai.flow.flow import Flow, listen, start
 
 from .crews.poem_crew.poem_crew import PoemCrew
+import secrets
 
 
 class PoemState(BaseModel):
@@ -18,7 +18,7 @@ class PoemFlow(Flow[PoemState]):
     @start()
     def generate_sentence_count(self):
         print("Generating sentence count")
-        self.state.sentence_count = randint(1, 5)
+        self.state.sentence_count = secrets.SystemRandom().randint(1, 5)
 
     @listen(generate_sentence_count)
     def generate_poem(self):
